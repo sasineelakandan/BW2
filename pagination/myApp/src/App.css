@@ -1,0 +1,9 @@
+body, html {
+  background-color: black; /* Full black background */
+  margin: 0;  /* Remove default margins */
+  padding: 0; /* Remove default paddings */
+ /* Ensure full-page height */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
