@@ -1,30 +1,27 @@
-
-
 import express from 'express'
-import fs from 'fs'
-
+import eventEmitter from 'events'
 const app=express()
+const emitter=new eventEmitter()
 
 
-app.get('/',async(req,res,next)=>{
-  try{
-
-  const error= new Error('somthiing went wrong')
-  error.status=400
-  next(error)
-     
-  }catch(err){
-    console.log('new',err)
-    next(err)
+app.use((req,res,next)=>{
+  if(req.method==='GET'){
+    res.send('server blocked')
   }
+  next()
 })
-app.use((err, req, res, next) => {
-    res.status(err.status || 500).json({
-        success: false,
-        message: err.message || 'Internal Server Error',
-    });
-});
+
+app.get('/',(req,res)=>{
+  console.log(req.query.a)
+    console.log(req.query.b)
+  res.send('hello world')
+})
+
+app.post('/name',(req,res)=>{
+  res.send(req.headers.name)
+})
+
 
 app.listen(8001,()=>{
-    console.log('server start')
+  console.log('server Started')
 })
